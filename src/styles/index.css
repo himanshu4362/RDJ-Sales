@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  /* Spacing Scale Contract (4/8/12... rhythm) */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  /* Semantic Token Mapping -> React Components consume these (e.g., bg-brand-primary) */
+  --color-brand-primary: var(--theme-brand-primary);
+  --color-brand-secondary: var(--theme-brand-secondary);
+  
+  --color-surface-primary: var(--theme-surface-primary);
+  --color-surface-secondary: var(--theme-surface-secondary);
+  --color-surface-elevated: var(--theme-surface-elevated);
+  
+  --color-text-primary: var(--theme-text-primary);
+  --color-text-secondary: var(--theme-text-secondary);
+  --color-text-muted: var(--theme-text-muted);
+  
+  --color-border-default: var(--theme-border-default);
+  
+  --color-success: var(--theme-success);
+  --color-warning: var(--theme-warning);
+  --color-danger: var(--theme-danger);
+  --color-info: var(--theme-info);
+  
+  --color-disabled: var(--theme-disabled);
+  --color-overlay: var(--theme-overlay);
+}
+
+/* Light Mode (Baseline) - Theme Engine resolves these */
+:root {
+  --theme-brand-primary: #FF5722; /* Industrial Orange */
+  --theme-brand-secondary: #E64A19;
+  
+  --theme-surface-primary: #FFFFFF;
+  --theme-surface-secondary: #F3F4F6;
+  --theme-surface-elevated: #FFFFFF;
+  
+  --theme-text-primary: #111827;
+  --theme-text-secondary: #4B5563;
+  --theme-text-muted: #9CA3AF;
+  
+  --theme-border-default: #E5E7EB;
+  
+  --theme-success: #10B981;
+  --theme-warning: #F59E0B;
+  --theme-danger: #EF4444;
+  --theme-info: #3B82F6;
+  
+  --theme-disabled: #D1D5DB;
+  --theme-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* Dark Mode - Theme Engine resolves these when data-theme="dark" */
+[data-theme="dark"] {
+  --theme-brand-primary: #FF7043;
+  --theme-brand-secondary: #F4511E;
+  
+  --theme-surface-primary: #121212;
+  --theme-surface-secondary: #1E1E1E;
+  --theme-surface-elevated: #27272A;
+  
+  --theme-text-primary: #F9FAFB;
+  --theme-text-secondary: #D1D5DB;
+  --theme-text-muted: #6B7280;
+  
+  --theme-border-default: #374151;
+  
+  --theme-success: #34D399;
+  --theme-warning: #FBBF24;
+  --theme-danger: #F87171;
+  --theme-info: #60A5FA;
+  
+  --theme-disabled: #4B5563;
+  --theme-overlay: rgba(0, 0, 0, 0.7);
+}
