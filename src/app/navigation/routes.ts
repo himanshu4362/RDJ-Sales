@@ -12,6 +12,8 @@ export const ROUTES = {
   // ==========================================
   HOME: '/',
   CATALOG: '/catalog',
+  PRODUCT_CREATE: '/catalog/new',
+  PRODUCT_EDIT: (productSlug: string) => `/catalog/${productSlug}/edit`,
   // Uses a pure function to enforce business identity in dynamic URLs
   PRODUCT_DETAILS: (productSlug: string) => `/catalog/${productSlug}`,
   CONFIGURATOR: '/configurator',
@@ -35,6 +37,7 @@ export const ROUTES = {
   // ADMINISTRATIVE ZONE (Role-Based)
   // ==========================================
   ADMIN_DASHBOARD: '/admin',
+  
   
   // ==========================================
   // COMMUNICATION ZONE (Future Scope)

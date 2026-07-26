@@ -1,5 +1,5 @@
 import React from 'react';
-import { Speaker } from 'lucide-react'; // Branded placeholder
+import { Speaker } from 'lucide-react';
 import type { Product, ProductStatus } from '../domain/catalog.types';
 import { Card, CardContent, CardFooter } from '../../../common/components/ui/Card';
 import { Badge } from '../../../common/components/ui/Badge';
@@ -8,7 +8,7 @@ import { formatCurrency } from '../../../common/utils/formatters';
 
 interface ProductCardProps {
   product: Product;
-  onEdit?: (slug: string) => void;
+  onOpen?: (slug: string) => void;
 }
 
 const getStatusVariant = (status: ProductStatus) => {
@@ -21,7 +21,6 @@ const getStatusVariant = (status: ProductStatus) => {
   }
 };
 
-// Refinement 4: Localization-ready label map
 const STATUS_LABELS: Record<ProductStatus, string> = {
   ACTIVE: 'Active',
   OUT_OF_STOCK: 'Out of Stock',
@@ -29,12 +28,13 @@ const STATUS_LABELS: Record<ProductStatus, string> = {
   DRAFT: 'Draft',
 };
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onEdit }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpen }) => {
   const primaryImage = product.images.find(img => img.isPrimary) || product.images[0];
-  const formattedPrice = formatCurrency(product.sellingPrice); // Refinement 1: O(1) instantiation
+  const formattedPrice = formatCurrency(product.sellingPrice); 
 
   return (
     <Card className="flex flex-col h-full transition-shadow hover:shadow-md">
+      
       {/* Visual Hierarchy 1: Image & Status */}
       <div className="relative aspect-square bg-surface-secondary flex items-center justify-center overflow-hidden">
         {primaryImage ? (
@@ -45,7 +45,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onEdit }) => 
              loading="lazy"
            />
         ) : (
-          /* Refinement 2: Premium Placeholder */
           <Speaker size={48} className="text-border-default opacity-50" strokeWidth={1.5} />
         )}
         <div className="absolute top-2 right-2">
@@ -70,7 +69,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onEdit }) => 
               {formattedPrice}
             </div>
             {product.mrp > product.sellingPrice && (
-              /* Refinement 3: Muted MRP hierarchy */
               <div className="text-xs text-text-muted/70 line-through">
                 {formatCurrency(product.mrp)}
               </div>
@@ -89,10 +87,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onEdit }) => 
         <Button 
           variant="secondary" 
           fullWidth 
-          onClick={() => onEdit?.(product.slug)}
-          aria-label={`Manage ${product.name}`}
+          onClick={() => onOpen?.(product.slug)}
+          aria-label={`View Details for ${product.name}`}
         >
-          Manage
+          View Details
         </Button>
       </CardFooter>
     </Card>

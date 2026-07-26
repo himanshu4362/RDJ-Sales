@@ -14,7 +14,7 @@ const STATUS_MAP: Record<string, ProductStatus> = {
 export const mapProductDtoToDomain = (dto: ProductDTO): Product => {
   return {
     id: dto._id,
-    sku: dto.sku || '', // Assuming DTO now includes sku
+    sku: dto.sku || '',
     slug: dto.slug,
     modelNumber: dto.model_no,
     name: dto.product_name,
@@ -22,7 +22,9 @@ export const mapProductDtoToDomain = (dto: ProductDTO): Product => {
     description: dto.full_desc,
     
     categoryId: dto.category_id,
+    categoryName: dto.category_id.replace('cat_', '').charAt(0).toUpperCase() + dto.category_id.replace('cat_', '').slice(1),
     brandId: dto.brand_id,
+    brandName: dto.brand_id.replace('brand_', '').charAt(0).toUpperCase() + dto.brand_id.replace('brand_', '').slice(1),
     
     sellingPrice: convertPaiseToRupees(dto.selling_price_paise),
     mrp: convertPaiseToRupees(dto.mrp_paise),

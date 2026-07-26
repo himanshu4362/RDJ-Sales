@@ -61,6 +61,8 @@ export interface Product {
   slug: string;
   
   // The Exact Equipment Configuration (Crucial for DJ/Audio gear)
+  brandName: string;
+  categoryName: string;
   modelNumber: string; 
   
   name: string;
@@ -91,4 +93,10 @@ export interface Product {
   // Improvement 6: Audit timestamps
   createdAt: string;
   updatedAt: string;
+}
+
+// Shared type for dropdowns across the Catalog feature
+export interface SelectOption {
+  id: string;
+  name: string;
 }

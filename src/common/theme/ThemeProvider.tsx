@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ThemeContext } from './ThemeContext';
-import { Theme, ActualTheme } from './types';
+import type { Theme, ActualTheme } from './types';
 import { getStoredTheme, setStoredTheme } from './storage';
 import { resolveTheme } from './resolver';
 import { applyThemeToDOM } from './dom';

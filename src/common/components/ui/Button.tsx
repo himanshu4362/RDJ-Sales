@@ -1,4 +1,4 @@
-import React, { forwardRef, type ButtonHTMLAttributes } from 'react';
+import { forwardRef, type ButtonHTMLAttributes } from 'react';
 
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,7 +17,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       primary: "bg-brand-primary text-surface-primary hover:bg-brand-secondary focus:ring-brand-primary",
       secondary: "bg-surface-secondary text-text-primary border border-border-default hover:bg-border-default focus:ring-text-primary",
       ghost: "bg-transparent text-text-secondary hover:bg-surface-secondary hover:text-text-primary focus:ring-text-secondary",
-      danger: "bg-danger text-surface-primary hover:bg-red-600 focus:ring-danger",
+      danger: "bg-danger text-surface-primary hover:opacity-90 focus:ring-danger", 
     };
 
     return (

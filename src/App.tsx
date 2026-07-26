@@ -1,9 +1,9 @@
-const App = () => {
-  return(
-    <h1 className="text-3xl font-bold underline text-red-700">
-    RDJ Sales and services!
-    </h1>
-  )
-}
+import React from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { AppRouter } from './app/AppRouter'; 
 
-export default App
+const App: React.FC = () => {
+  return <RouterProvider router={AppRouter} />;
+};
+
+export default App;

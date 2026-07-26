@@ -5,6 +5,7 @@ import { ProductGrid } from '../components/ProductGrid';
 import { ProductCard } from '../components/ProductCard';
 import { ProductCardSkeleton } from '../components/ProductCardSkeleton';
 import { Button } from '../../../common/components/ui/Button';
+import { ROUTES } from '../../../app/navigation/routes';
 import { Speaker, AlertTriangle } from 'lucide-react';
 import { LoadingSkeleton } from '../../../common/components/ui/LoadingSkeleton';
 
@@ -13,7 +14,7 @@ const SKELETON_CARD_COUNT = 8;
 export const CatalogListPage: React.FC = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError, refetch } = useGetProductsQuery({});
-  
+
   const products = data?.data ?? [];
   const isEmpty = products.length === 0;
 
@@ -39,8 +40,9 @@ export const CatalogListPage: React.FC = () => {
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] text-center px-4">
-        <div className="h-16 w-16 bg-red-50 text-danger rounded-full flex items-center justify-center mb-4">
+      <div className="flex flex-col items-center justify-center min-h-100 text-center px-4">
+        {/* FIXED: Replaced bg-red-50 with bg-danger/10 */}
+        <div className="h-16 w-16 bg-danger/10 text-danger rounded-full flex items-center justify-center mb-4">
           <AlertTriangle size={32} />
         </div>
         <h2 className="text-xl font-bold text-text-primary mb-2">Couldn't load your catalog.</h2>
@@ -54,7 +56,7 @@ export const CatalogListPage: React.FC = () => {
 
   if (isEmpty) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4 border-2 border-dashed border-border-default rounded-xl bg-surface-primary">
+      <div className="flex flex-col items-center justify-center min-h-125 text-center px-4 border-2 border-dashed border-border-default rounded-xl bg-surface-primary">
         <div className="h-20 w-20 bg-surface-secondary text-text-muted rounded-full flex items-center justify-center mb-4">
           <Speaker size={40} strokeWidth={1.5} />
         </div>
@@ -80,10 +82,10 @@ export const CatalogListPage: React.FC = () => {
 
       <ProductGrid>
         {products.map((product) => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
-            onEdit={(slug) => navigate(`/catalog/${slug}/edit`)} 
+          <ProductCard
+            key={product.id}
+            product={product}
+            onOpen={(slug) => navigate(ROUTES.PRODUCT_DETAILS(slug))} // NEW
           />
         ))}
       </ProductGrid>

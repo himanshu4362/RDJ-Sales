@@ -15,6 +15,7 @@ export interface ProductImageDTO {
 
 export interface ProductDTO {
   _id: string;
+  sku: string;
   slug: string;
   model_no: string;
   product_name: string;

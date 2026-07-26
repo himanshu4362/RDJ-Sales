@@ -1,4 +1,4 @@
-import { Theme, ActualTheme } from './types';
+import type { Theme, ActualTheme } from './types';
 
 export const resolveTheme = (theme: Theme): ActualTheme => {
   if (theme === 'system') {
