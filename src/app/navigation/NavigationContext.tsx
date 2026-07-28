@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 
 interface NavigationContextValue {
-  // We reserve these for future "Never Get Lost" implementation
   lastPath: string | null;
-  setLastPath: (path: string) => void;
+  setLastPath: (path: string | null) => void;
 }
 
 const NavigationContext = createContext<NavigationContextValue | undefined>(undefined);

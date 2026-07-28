@@ -1,17 +1,13 @@
 import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
-import type { ProductFormData } from '../validation/catalog.schema';
-import { Card, CardContent, CardHeader } from '../../../common/components/ui/Card';
-import { Input } from '../../../common/components/ui/Input';
-import { Label } from '../../../common/components/ui/Label';
-import { FieldError } from '../../../common/components/ui/FieldError';
-import { Select } from '../../../common/components/ui/Select';
-import { Textarea } from '../../../common/components/ui/Textarea';
-
-export interface SelectOption {
-  id: string;
-  name: string;
-}
+import type { ProductFormData } from '../../validation/catalog.schema';
+import type { SelectOption } from '../../domain/catalog.types';
+import { Card, CardContent, CardHeader } from '../../../../common/components/ui/Card';
+import { Input } from '../../../../common/components/ui/Input';
+import { Label } from '../../../../common/components/ui/Label';
+import { FieldError } from '../../../../common/components/ui/FieldError';
+import { Select } from '../../../../common/components/ui/Select';
+import { Textarea } from '../../../../common/components/ui/Textarea';
 
 interface IdentitySectionProps {
   form: UseFormReturn<ProductFormData>;
@@ -21,7 +17,7 @@ interface IdentitySectionProps {
 
 export const IdentitySection: React.FC<IdentitySectionProps> = ({ form, brands, categories }) => {
   const { register, formState: { errors } } = form;
-  
+
   return (
     <Card>
       <CardHeader>

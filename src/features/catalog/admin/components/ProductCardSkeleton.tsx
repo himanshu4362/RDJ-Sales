@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardFooter } from '../../../common/components/ui/Card';
-import { LoadingSkeleton } from '../../../common/components/ui/LoadingSkeleton';
+import { Card, CardContent, CardFooter } from '../../../../common/components/ui/Card';
+import { LoadingSkeleton } from '../../../../common/components/ui/LoadingSkeleton';
 
 export const ProductCardSkeleton: React.FC = () => {
   return (

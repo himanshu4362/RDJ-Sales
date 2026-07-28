@@ -1,20 +1,12 @@
 /**
  * src/app/navigation/routes.ts
- * 
- * Defines all application route paths.
- * By centralizing these, we guarantee that URL structures remain 
- * consistent, shareable, and decoupled from UI component names.
  */
-
 export const ROUTES = {
   // ==========================================
   // DISCOVERY ZONE (Public Access)
   // ==========================================
   HOME: '/',
-  CATALOG: '/catalog',
-  PRODUCT_CREATE: '/catalog/new',
-  PRODUCT_EDIT: (productSlug: string) => `/catalog/${productSlug}/edit`,
-  // Uses a pure function to enforce business identity in dynamic URLs
+  CATALOG: '/catalog', 
   PRODUCT_DETAILS: (productSlug: string) => `/catalog/${productSlug}`,
   CONFIGURATOR: '/configurator',
 
@@ -29,7 +21,7 @@ export const ROUTES = {
   CART: '/cart',
   ORDERS: '/orders',
   ORDER_DETAILS: (orderId: string) => `/orders/${orderId}`,
-  PAYMENTS: '/payments', // Open payments ledger
+  PAYMENTS: '/payments',
   REPAIRS: '/repairs',
   VIP_APPOINTMENTS: '/vip',
 
@@ -37,15 +29,10 @@ export const ROUTES = {
   // ADMINISTRATIVE ZONE (Role-Based)
   // ==========================================
   ADMIN_DASHBOARD: '/admin',
-  
-  
-  // ==========================================
-  // COMMUNICATION ZONE (Future Scope)
-  // ==========================================
-  // CHAT: '/chat',
-  // BROADCASTS: '/broadcasts',
-  // CONSULTATIONS: '/consultations',
+  ADMIN_CATALOG: '/admin/catalog',
+  ADMIN_PRODUCT_CREATE: '/admin/catalog/new',
+  ADMIN_PRODUCT_EDIT: (productSlug: string) => `/admin/catalog/${productSlug}/edit`,
+  ADMIN_PRODUCT_DETAILS: (productSlug: string) => `/admin/catalog/${productSlug}`,
 } as const;
 
-// Type helper for future strict-typing of route consumption
 export type AppRoutes = typeof ROUTES;

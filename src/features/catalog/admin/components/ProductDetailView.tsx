@@ -1,10 +1,10 @@
 import React from 'react';
 import { Speaker } from 'lucide-react';
-import type { Product } from '../domain/catalog.types';
-import { PRODUCT_STATUS_UI } from '../constants/status';
-import { Card, CardContent, CardHeader } from '../../../common/components/ui/Card';
-import { Badge } from '../../../common/components/ui/Badge';
-import { formatCurrency } from '../../../common/utils/formatters';
+import type { Product } from '../../domain/catalog.types';
+import { PRODUCT_STATUS_UI } from '../../constants/status';
+import { Card, CardContent, CardHeader } from '../../../../common/components/ui/Card';
+import { Badge } from '../../../../common/components/ui/Badge';
+import { formatCurrency } from '../../../../common/utils/formatters';
 
 interface ProductDetailViewProps {
   product: Product;
