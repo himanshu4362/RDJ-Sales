@@ -1,47 +1,29 @@
-// import React from 'react';
-// import { Navigate, Outlet, useLocation } from 'react-router-dom';
-// import { ROUTES } from '../../app/navigation/routes';
-// import { useAppSelector } from '../../store/hooks';
-
-// /**
-//  * Responsibility: Intercepts access to the Action Zone.
-//  * Architecture Contract: Enforces authorization via the global Data Infrastructure (Redux)
-//  * while preserving the user's intended destination.
-//  */
-// export const AuthorizationBoundary: React.FC = () => {
-//   const location = useLocation();
-  
-//   // Single Source of Truth: Reads directly from the infrastructure layer
-//   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated); 
-
-//   if (!isAuthenticated) {
-//     return <Navigate to={ROUTES.LOGIN} replace state={{ from: location }} />;
-//   }
-
-//   return <Outlet />;
-// };
-
-
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { ROUTES } from '../../app/navigation/routes';
 import { useAppSelector } from '../../store/hooks';
+import type { MemberRole } from '../../features/account/domain/account.types';
 
-// TODO [AUTH]: Remove this DEV_MODE bypass during the Authentication Phase.
-// Reason: Unblocks Rana Sales business module development without login friction.
-// Remove after: Authentication feature vertical is implemented.
-const IS_DEV_MODE = true; 
+interface AuthBoundaryProps {
+  allowedRoles?: MemberRole[];
+}
 
-export const AuthorizationBoundary: React.FC = () => {
+export const AuthorizationBoundary: React.FC<AuthBoundaryProps> = ({ allowedRoles }) => {
   const location = useLocation();
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const { isAuthenticated, member } = useAppSelector((state) => state.auth);
 
-  if (IS_DEV_MODE) {
-    return <Outlet />; 
+  if (!isAuthenticated || !member) {
+    // Rule #14: Capture exact destination and intent passed by components
+    const intendedContext = location.pathname + location.search + location.hash;
+    const intent = (location.state as any)?.intent;
+    
+    return <Navigate to={ROUTES.LOGIN} replace state={{ from: intendedContext, intent }} />;
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to={ROUTES.LOGIN} replace state={{ from: location }} />;
+  // AuthZ Check
+  if (allowedRoles && !allowedRoles.includes(member.identity.role)) {
+    return <Navigate to={member.identity.role === 'admin' ? ROUTES.ADMIN_WORKSPACE : ROUTES.MEMBER_HOME} replace />;
   }
+
   return <Outlet />;
 };

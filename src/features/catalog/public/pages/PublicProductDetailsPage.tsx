@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, ShieldCheck, Wrench, PhoneCall, CheckCircle2 } from 'lucide-react';
 import { ROUTES } from '../../../../app/navigation/routes';
 import { usePublicProductDetails } from '../../hooks/public.hooks';
 import { LoadingSkeleton } from '../../../../common/components/ui/LoadingSkeleton';
 import { formatCurrency } from '../../../../common/utils/formatters';
 import { OpportunityDrawer } from '../../../sales-opportunity/public/components/OpportunityDrawer';
+import { useAppSelector } from '../../../../store/hooks';
 
 export const PublicProductDetailsPage: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { data: product, isLoading } = usePublicProductDetails(slug ?? '');
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
+  // RULE #14 CONSUMER: Listen for intent from the router state
+  useEffect(() => {
+    const state = location.state as any;
+    if (state?.intent === 'request_commercial_order') {
+      setIsDrawerOpen(true);
+      // Clean up the history state so refreshing doesn't re-trigger it
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
+  const handleRequestOrder = () => {
+    if (!isAuthenticated) {
+      // Pass the intent to the Auth Boundary so login can resume this action
+      navigate(ROUTES.LOGIN, {
+        state: {
+          from: location.pathname,
+          intent: 'request_commercial_order'
+        }
+      });
+    } else {
+      setIsDrawerOpen(true);
+    }
+  };
 
   if (isLoading || !product) {
     return (
@@ -89,9 +115,9 @@ export const PublicProductDetailsPage: React.FC = () => {
                 </span>
               </div>
 
-              {/* P0 Correction 3: Dead CTA Fixed */}
+              {/* P0 Correction 3: Dead CTA Fixed. Now auth-gated via RULE #14. */}
               <button
-                onClick={() => setIsDrawerOpen(true)}
+                onClick={handleRequestOrder}
                 className="w-full bg-brand-primary hover:bg-brand-secondary text-white h-16 rounded-lg font-bold text-lg flex items-center justify-center gap-3 transition-colors shadow-md"
               >
                 <PhoneCall size={22} />

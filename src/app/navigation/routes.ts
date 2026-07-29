@@ -6,37 +6,41 @@ export const ROUTES = {
   // DISCOVERY ZONE (Public Access)
   // ==========================================
   HOME: '/',
-  CATALOG: '/catalog', 
+  CATALOG: '/catalog',
   PRODUCT_DETAILS: (productSlug: string) => `/catalog/${productSlug}`,
   CONFIGURATOR: '/configurator',
-  ADMIN_WORKSPACE: '/admin',
-  OPPORTUNITIES: '/admin/opportunities',
-  ORDERS: '/admin/orders', 
-  REPAIRS: '/admin/repairs', 
-  VIP_APPOINTMENTS: '/admin/vip', 
+
   // ==========================================
-  // AUTHENTICATION JOURNEY
+  // AUTHENTICATION (Public Access)
   // ==========================================
   LOGIN: '/login',
 
   // ==========================================
-  // ACTION ZONE (Protected / Requires Session)
+  // CUSTOMER ZONE (Protected / Requires Session)
   // ==========================================
+  MEMBER_HOME: '/member',
   CART: '/cart',
-  ORDER_DETAILS: (orderId: string) => `/orders/${orderId}`,
   PAYMENTS: '/payments',
 
   // ==========================================
-  // ADMINISTRATIVE ZONE (Role-Based)
+  // BUSINESS ZONE (Protected / Admin Role)
   // ==========================================
+  ADMIN_WORKSPACE: '/admin',
   ADMIN_DASHBOARD: '/admin',
+
+  OPPORTUNITIES: '/admin/opportunities',
+  OPPORTUNITY_DETAILS: (id: string) => `/admin/opportunities/${id}`,
+
+  ORDERS: '/admin/orders',
+  ORDER_DETAILS: (id: string) => `/admin/orders/${id}`,
+
+  REPAIRS: '/admin/repairs',
+  VIP_APPOINTMENTS: '/admin/vip',
+
   ADMIN_CATALOG: '/admin/catalog',
   ADMIN_PRODUCT_CREATE: '/admin/catalog/new',
   ADMIN_PRODUCT_EDIT: (productSlug: string) => `/admin/catalog/${productSlug}/edit`,
   ADMIN_PRODUCT_DETAILS: (productSlug: string) => `/admin/catalog/${productSlug}`,
-  
-  // NEW: Added dynamic path generator for opportunity details
-  OPPORTUNITY_DETAILS: (id: string) => `/admin/opportunities/${id}`,
 } as const;
 
 export type AppRoutes = typeof ROUTES;

@@ -37,50 +37,25 @@ Current
 - 🔄 Slice 4 — Business Module Blueprint
 
 ---
-
 # Phase 2B — Reference Feature Implementation
-
-The Product Catalog becomes the reference implementation.
-
-Every future module must follow the same architectural blueprint.
-
-Modules include:
-
-- Catalog
-- Product Details
-- Cart
-- Checkout
-- Orders
-- Repairs
-- Payments
-- Admin
-
----
+The Product Catalog was the initial reference implementation. We now have three completed reference verticals that demonstrate the standard architectural blueprint. Every future module must follow these patterns:
+- **Catalog:** Reference for read-heavy public/admin data projection.
+- **Sales Opportunities:** Reference for customer intent and pipeline state management.
+- **Orders:** Reference for strict commercial agreement encapsulation and operational queues.
 
 # Product Coverage Matrix
+Tracking our engineering maturity through RDJ Workflow v2.
 
-| Business Capability | Business Verified | Planned | Infrastructure | Backend | Frontend | Tested | Delivered |
-|---------------------|:-----------------:|:-------:|:--------------:|:-------:|:--------:|:-------:|:----------:|
-| Product Catalog *(Reference)* | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Product Details | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Configurator | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Cart | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Checkout | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Orders | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Repairs & Diagnostics | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Warranty Tracking | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Payments Ledger | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| VIP Appointments | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Admin Dashboard | ⬜ | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Inventory Management | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Customer CRM | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Staff & Team Roles | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Dealer Pricing | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| GST Invoicing | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Notifications & Broadcasts | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| Audio/Video Consultation | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-
----
+| Capability | Business Model | Scope | Frontend | Backend | Browser | Frozen |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| Catalog | ✅ | ✅ | ✅ | Mock | ✅ | ✅ |
+| Sales Opportunities | ✅ | ✅ | ✅ | Mock | ✅ | ✅ |
+| Orders | ✅ | ✅ | 🔄 | Mock | 🔄 | ❌ |
+| Repairs & Diagnostics | ✅ | ✅ | ⚪ | ⚪ | ⚪ | ⚪ |
+| Cart | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ |
+| Checkout | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ |
+| Payments Ledger | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ |
+| Inventory Management | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ | ⚪ |
 
 # Engineering Process
 

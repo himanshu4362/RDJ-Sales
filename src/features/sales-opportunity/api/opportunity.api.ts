@@ -20,12 +20,30 @@ const mapDtoToDomain = (dto: SalesOpportunityDTO): SalesOpportunity => ({
   requestedQuantity: dto.req_qty || undefined,
   message: dto.customer_message || undefined,
   status: dto.pipeline_status,
+  linkedOrderId: dto.linked_order_id || undefined,
   createdAt: dto.created_at,
   updatedAt: dto.updated_at,
 });
 
 // Temporary Mock Data Store
-const mockOpportunities: SalesOpportunityDTO[] = [];
+let mockOpportunities: SalesOpportunityDTO[] = [
+  {
+    _id: 'opp_test123',
+    customer_name: 'Himanshu Raj',
+    customer_phone: '6202739979',
+    city_district: 'Jamshedpur',
+    product_id: 'prod_1',
+    product_name: 'ATI Pro 1200W Professional Power Amplifier',
+    product_slug: 'ati-pro-1200w-amplifier',
+    product_model: 'RX-1200',
+    product_image: null,
+    req_qty: 2,
+    customer_message: 'Need this urgently.',
+    pipeline_status: 'NEW',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  }
+];
 
 export const opportunityApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -55,6 +73,24 @@ export const opportunityApi = baseApi.injectEndpoints({
         return { data: mapDtoToDomain(newDto) };
       },
       invalidatesTags: [{ type: CACHE_TAGS.Opportunity, id: 'OPPORTUNITY_LIST' }],
+    }),
+
+    linkOrderToOpportunity: builder.mutation<SalesOpportunity, { id: string; orderId: string }>({
+      queryFn: ({ id, orderId }) => {
+        const index = mockOpportunities.findIndex(o => o._id === id);
+        if (index === -1) return { error: { status: 404, statusText: 'Not Found', data: 'Opportunity not found' } };
+        
+        mockOpportunities[index] = { 
+          ...mockOpportunities[index], 
+          linked_order_id: orderId, 
+          pipeline_status: 'COMPLETED' // Business Rule: Creating an order completes the opportunity
+        };
+        return { data: mapDtoToDomain(mockOpportunities[index]) };
+      },
+      invalidatesTags: (_result, _error, arg) => [
+        { type: CACHE_TAGS.Opportunity, id: arg.id }, 
+        { type: CACHE_TAGS.Opportunity, id: 'OPPORTUNITY_LIST' }
+      ],
     }),
 
     // Admin Action: View pipeline
@@ -98,5 +134,6 @@ export const {
   useSubmitOpportunityMutation, 
   useGetOpportunitiesQuery, 
   useGetOpportunityByIdQuery,
-  useUpdateOpportunityStatusMutation 
+  useUpdateOpportunityStatusMutation,
+  useLinkOrderToOpportunityMutation // NEW
 } = opportunityApi;

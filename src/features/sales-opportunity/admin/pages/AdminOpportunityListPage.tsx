@@ -11,7 +11,7 @@ export const AdminOpportunityListPage: React.FC = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError } = useGetOpportunitiesQuery();
   const [updateStatus] = useUpdateOpportunityStatusMutation();
-  
+
   const [searchQuery, setSearchQuery] = useState('');
 
   const opportunities = data?.data || [];
@@ -27,7 +27,7 @@ export const AdminOpportunityListPage: React.FC = () => {
 
     return opportunities
       // P1: Functional Search Filter
-      .filter(opp => 
+      .filter(opp =>
         opp.customerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         opp.customerPhone.includes(searchQuery) ||
         opp.productName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -63,12 +63,12 @@ export const AdminOpportunityListPage: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-surface-secondary pb-24">
-      
+
       {/* 1. Admin Header */}
       <div className="bg-surface-primary border-b border-border-default sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center gap-4">
-          <button 
-            onClick={() => navigate(ROUTES.ADMIN_WORKSPACE)} 
+          <button
+            onClick={() => navigate(ROUTES.ADMIN_WORKSPACE)}
             className="p-2 -ml-2 text-text-secondary hover:text-text-primary transition-colors rounded-full hover:bg-surface-secondary"
           >
             <ArrowLeft size={20} />
@@ -81,14 +81,14 @@ export const AdminOpportunityListPage: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 pt-8">
-        
+
         {/* 2. Operational Toolbar (Craftsmanship Improvement) */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-surface-primary p-4 rounded-xl border border-border-default shadow-sm">
           <div className="flex items-center flex-1 max-w-md border border-border-default rounded-lg bg-surface-secondary px-3 py-2 focus-within:border-text-primary transition-colors">
             <Search size={18} className="text-text-muted shrink-0" />
-            <input 
-              type="text" 
-              placeholder="Search by customer, phone, or product..." 
+            <input
+              type="text"
+              placeholder="Search by customer, phone, or product..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent border-none focus:outline-none text-sm px-3 text-text-primary w-full placeholder:text-text-muted"
@@ -100,7 +100,7 @@ export const AdminOpportunityListPage: React.FC = () => {
             </button>
           </div>
         </div>
-        
+
         {/* 3. Pipeline Table Body */}
         {processedOpportunities.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center bg-surface-primary border border-border-default rounded-xl shadow-sm">
@@ -129,7 +129,11 @@ export const AdminOpportunityListPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-border-default">
                   {processedOpportunities.map((opp) => (
-                    <tr key={opp.id} className="hover:bg-surface-secondary/50 transition-colors group">
+                    <tr
+                      key={opp.id}
+                      onClick={() => navigate(ROUTES.OPPORTUNITY_DETAILS(opp.id))}
+                      className="hover:bg-surface-secondary/50 transition-colors group cursor-pointer"
+                    >
                       <td className="p-4 pl-6">
                         <span className="text-sm font-medium text-text-secondary whitespace-nowrap">
                           {new Date(opp.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
@@ -155,8 +159,9 @@ export const AdminOpportunityListPage: React.FC = () => {
                       </td>
                       <td className="p-4 pr-6 text-right">
                         {/* P1: Type safety enforced (Removed 'as any') */}
-                        <select 
+                        <select
                           value={opp.status}
+                          onClick={(e) => e.stopPropagation()} // Prevents row click when interacting with dropdown
                           onChange={(e) => updateStatus({ id: opp.id, status: e.target.value as OpportunityStatus })}
                           className="text-xs font-bold bg-surface-primary border border-border-default rounded px-2 py-1.5 text-text-primary focus:outline-none focus:border-brand-primary cursor-pointer hover:bg-surface-secondary transition-colors"
                         >

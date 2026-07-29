@@ -15,6 +15,7 @@ export interface SalesOpportunityDTO {
   customer_message: string | null;
   
   pipeline_status: 'NEW' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+  linked_order_id?: string | null; // NEW
   created_at: string;
   updated_at: string;
 }

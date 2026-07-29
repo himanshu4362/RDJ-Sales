@@ -32,3 +32,9 @@ If the answer is no, it does not belong in Version 1.
 14. **Never Duplicate Business Rules:** A business invariant (e.g., "Active products need images") exists in exactly one place (validation schema).
 15. **No Speculative Abstraction:** Do not create generic providers, global query managers, or empty folder structures for features that do not exist yet. Build it when it is needed.
 16. **No Ghost Data:** Never pretend ephemeral browser state (like a blob URL) is permanent persistence. Be honest about architectural limits during the mock phase.
+
+## VI. Design & Journey Laws
+17. **Rule #9: Design Ahead, Build One:** We may design systems (Identity, Payments, Chat) months in advance to ensure architectural stability, but we strictly implement only one vertical at a time.
+18. **Rule #10: Every Business Event Has Two Perspectives:** Every business action must be reviewed from both Ravi's perspective (The Business) and the Member's perspective (The Customer) before implementation. The customer does not need the same controls; they need the result of Ravi's decisions.
+19. **Rule #13: Preserve Business Context:** Authentication is an interruption, not a destination. After authentication, the user must be returned to the exact business context (URL) that required the interruption.
+20. **Rule #14: Preserve User Intent:** Returning to a URL is insufficient. The authentication flow must capture and restore the user's specific *action intent* (e.g., `intent='open_order_drawer'`) so the application can automatically resume the interrupted workflow.

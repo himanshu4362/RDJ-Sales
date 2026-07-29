@@ -27,7 +27,10 @@ Customer views product → Triggers Request → Fills minimal context form → R
 
 ## 6. Business Lifecycle Policy
 The status of a Sales Opportunity is a strict business policy, not just a UI string. The intended lifecycle is:
-`NEW` (Uncontacted) → `IN_PROGRESS` (Communication established) → `COMPLETED` (Sale won/fulfilled) OR `CANCELLED` (Lead lost/invalid).
+*   `NEW`: Uncontacted lead.
+*   `IN_PROGRESS`: Communication established.
+*   `COMPLETED`: **Deal Won / Commercial Agreement Reached.** This indicates the sales phase is over and an Order has been generated. It does NOT indicate physical delivery of goods.
+*   `CANCELLED`: Lead lost or invalid.
 
 ## 7. Client Validation (Next Sync)
 * Ask Ravi: *"When a customer contacts you about a product, what information do you wish they had already given you?"* (Adjust form fields based on this answer later if needed).

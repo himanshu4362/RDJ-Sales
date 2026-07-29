@@ -55,3 +55,17 @@ The system must gracefully handle navigation failures to maintain trust.
 * **The 404 (Not Found):** Outdated links route to a branded "Product Not Found" empty state that suggests browsing the active Catalog.
 * **Obsolete Protected Routes:** If an authenticated user lands on an entity that no longer exists (e.g., a deleted order), the system prioritizes returning them to the nearest logical parent (e.g., Order History) rather than a dead-end 404.
 * **Unauthorized Access:** Blocked attempts route to a secure dashboard with a clear, non-technical explanation.
+
+## 8. Current Product Map (Active Topology)
+This maps the currently implemented business contexts to physical routing zones.
+
+**Discovery Zone (Public: `/`)**
+*   `/catalog` - Public inventory browsing and product details.
+*   `Overlay: Opportunity Drawer` - Customer intake for sales requests.
+
+**Operations Zone (Protected: `/admin`)**
+*   `/admin` - Workspace Hub (The central nervous system).
+*   `/admin/catalog` - Catalog Management (Products, pricing, stock).
+*   `/admin/opportunities` - Sales Pipeline (Lead dossiers and pre-sales communication).
+*   `/admin/orders` - Operations Queue (Confirmed commercial agreements and fulfillment).
+*   `/admin/repairs` - Repair Desk (Diagnostic and service workflows - *Pending Implementation*).

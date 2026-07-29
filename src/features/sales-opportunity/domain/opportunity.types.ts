@@ -13,13 +13,14 @@ export interface SalesOpportunity {
   productId: string;
   productName: string;
   productSlug: string;
-  productModel: string;      // NEW: Snapshotted Model
-  productImage: string | null; // NEW: Snapshotted Image URL
+  productModel: string;     
+  productImage: string | null;
   
   requestedQuantity?: number;
   message?: string;
   
   status: OpportunityStatus;
+  linkedOrderId?: string; // NEW: The business invariant link
   createdAt: string;
   updatedAt: string;
 }
