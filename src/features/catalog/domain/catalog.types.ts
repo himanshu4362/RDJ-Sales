@@ -7,6 +7,8 @@
 // Improvement 2: Scalable lifecycle status
 export const PRODUCT_STATUSES = ['ACTIVE', 'OUT_OF_STOCK', 'DISCONTINUED', 'DRAFT'] as const;
 export type ProductStatus = typeof PRODUCT_STATUSES[number];
+export const SELLING_STRATEGIES = ['CONSULTATIVE', 'DIRECT_PURCHASE', 'BOTH'] as const;
+export type SellingStrategy = typeof SELLING_STRATEGIES[number];
 
 export interface Category {
   id: string;
@@ -89,6 +91,7 @@ export interface Product {
   // Business Metadata
   warrantyMonths: number;
   isFeatured: boolean;
+  sellingStrategy: SellingStrategy; // NEW: Governs Buy Now vs Request Quote UI
   
   // Improvement 6: Audit timestamps
   createdAt: string;

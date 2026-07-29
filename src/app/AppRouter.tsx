@@ -19,6 +19,8 @@ import { AdminOpportunityDetailsPage } from '../features/sales-opportunity/admin
 import { AdminCatalogListPage, AdminProductDetailsPage, AdminCreateProductPage, AdminEditProductPage } from '../features/catalog';
 import { AdminOrderListPage } from '../features/orders/admin/pages/AdminOrderListPage';
 import { AdminOrderWorkspacePage } from '../features/orders/admin/pages/AdminOrderWorkspacePage';
+// NEW: Import the ProposalWorkspacePage from the com feature
+import { ProposalWorkspacePage } from '../features/com/admin/pages/ProposalWorkspacePage';
 
 const Placeholder = ({ title }: { title: string }) => <div className="p-8 text-center"><h1 className="font-bold text-2xl text-text-primary">{title} Module</h1><p className="text-text-secondary">Under Construction</p></div>;
 const NotFound = () => <h1 className="p-8 font-bold text-2xl text-text-primary text-center mt-20">404 - Not Found</h1>;
@@ -62,6 +64,12 @@ export const AppRouter = createBrowserRouter([
   {
     element: <ApplicationBoot><AppLayout /></ApplicationBoot>,
     children: [
+
+      { path: ROUTES.CONFIGURATOR, element: <Placeholder title="Cabinet Configurator" /> },
+      { path: ROUTES.CART, element: <Placeholder title="Draft Orders" /> },
+      { path: ROUTES.PAYMENTS, element: <Placeholder title="Payment Ledger" /> },
+      { path: '/contact', element: <Placeholder title="Communication Workspace" /> }, // New Intent
+      
       // 1. DISCOVERY ZONE (Public)
       { path: ROUTES.HOME, element: <PublicHomePage /> },
       { path: 'catalog', element: <PublicCatalogPage /> },
@@ -81,14 +89,18 @@ export const AppRouter = createBrowserRouter([
         element: <AuthorizationBoundary allowedRoles={['admin']} />,
         children: [
           { path: 'admin', element: <AdminWorkspacePage /> },
-          { path: 'admin/catalog', children: [
+          {
+            path: 'admin/catalog', children: [
               { index: true, element: <AdminCatalogListPage /> },
               { path: 'new', element: <AdminCreateProductPage /> },
               { path: ':slug', element: <AdminProductDetailsPage /> },
               { path: ':slug/edit', element: <AdminEditProductPage /> },
-          ]},
+            ]
+          },
           { path: 'admin/opportunities', element: <AdminOpportunityListPage /> },
           { path: 'admin/opportunities/:id', element: <AdminOpportunityDetailsPage /> },
+          // NEW: Register the Proposal Workspace Route
+          { path: 'admin/opportunities/:id/proposal', element: <ProposalWorkspacePage /> }, 
           { path: 'admin/orders', element: <AdminOrderListPage /> },
           { path: 'admin/orders/:id', element: <AdminOrderWorkspacePage /> },
           { path: 'admin/repairs', element: <Placeholder title="Repairs" /> },

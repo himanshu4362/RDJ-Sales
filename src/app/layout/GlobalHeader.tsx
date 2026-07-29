@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// NEW: Import NavLink
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Sun, Moon, Monitor, LogOut, Search, Package, ShieldCheck, Wrench, MessageSquare, User } from 'lucide-react';
 import { useTheme } from '../../common/theme/useTheme';
 import { ROUTES } from '../navigation/routes';
@@ -29,10 +30,13 @@ export const GlobalHeader: React.FC = () => {
   const displayName = member?.profile.displayName ?? '';
   const initial = displayName.charAt(0).toUpperCase() || (role === 'admin' ? 'A' : 'M');
 
-  // Role-specific accent colors — admin reads as authority (amber), member reads as trust (sky)
   const roleStyles = role === 'admin'
     ? { badge: 'bg-amber-500/10 text-amber-600 border-amber-500/20', avatar: 'bg-amber-500' }
     : { badge: 'bg-sky-500/10 text-sky-600 border-sky-500/20', avatar: 'bg-sky-500' };
+
+  // Helper for NavLink styling
+  const navLinkClass = ({ isActive }: { isActive: boolean }) => 
+    `flex items-center gap-1.5 text-sm font-bold transition-colors ${isActive ? 'text-brand-primary' : 'text-text-secondary hover:text-text-primary'}`;
 
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b border-border-default bg-surface-primary px-4 md:px-8 shadow-sm">
@@ -42,24 +46,22 @@ export const GlobalHeader: React.FC = () => {
           <span className="text-xl font-bold tracking-tight text-text-primary">Rana Sales</span>
         </Link>
 
-        {/* Role-Aware Navigation Teaching the User What the App Can Do */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link to={ROUTES.CATALOG} className="text-sm font-bold text-text-secondary hover:text-text-primary transition-colors">Catalog</Link>
-
-          {/* Guest Navigation */}
-          {!isAuthenticated && (
-            <Link to={ROUTES.CATALOG} className="flex items-center gap-1.5 text-sm font-bold text-text-secondary hover:text-text-primary transition-colors">
-              <User size={15} strokeWidth={2.5} /> Support
-            </Link>
+          
+          {/* Guest & Member Catalog */}
+          {(!isAuthenticated || role === 'member') && (
+            <NavLink to={ROUTES.CATALOG} className={navLinkClass}>
+              Catalog
+            </NavLink>
           )}
 
           {/* Member Workspace Navigation */}
           {isAuthenticated && role === 'member' && (
             <>
-              <Link to={ROUTES.MEMBER_HOME} className="flex items-center gap-1.5 text-sm font-bold text-sky-600 hover:text-sky-700 transition-colors">
+              <NavLink to={ROUTES.MEMBER_HOME} className={navLinkClass}>
                 <Package size={15} strokeWidth={2.5} /> My Orders
-              </Link>
-              <span className="flex items-center gap-1.5 text-sm font-bold text-text-muted cursor-not-allowed" title="Available in future communication release">
+              </NavLink>
+              <span className="flex items-center gap-1.5 text-sm font-bold text-text-muted cursor-not-allowed" title="Available in future">
                 <MessageSquare size={15} strokeWidth={2.5} /> Communication
               </span>
             </>
@@ -68,15 +70,18 @@ export const GlobalHeader: React.FC = () => {
           {/* Ravi Admin Workspace Navigation */}
           {isAuthenticated && role === 'admin' && (
             <>
-              <Link to={ROUTES.ADMIN_WORKSPACE} className="flex items-center gap-1.5 text-sm font-bold text-amber-600 hover:text-amber-700 transition-colors">
+              <NavLink to={ROUTES.ADMIN_WORKSPACE} className={({ isActive }) => `flex items-center gap-1.5 text-sm font-bold transition-colors ${isActive ? 'text-amber-600' : 'text-text-secondary hover:text-text-primary'}`} end>
                 <ShieldCheck size={15} strokeWidth={2.5} /> Workspace Hub
-              </Link>
-              <Link to={ROUTES.ORDERS} className="flex items-center gap-1.5 text-sm font-bold text-text-secondary hover:text-text-primary transition-colors">
+              </NavLink>
+              <NavLink to={ROUTES.ADMIN_CATALOG} className={navLinkClass}>
+                 Manage Catalog
+              </NavLink>
+              <NavLink to={ROUTES.ORDERS} className={navLinkClass}>
                 <Package size={15} strokeWidth={2.5} /> Orders
-              </Link>
-              <Link to={ROUTES.OPPORTUNITIES} className="flex items-center gap-1.5 text-sm font-bold text-text-secondary hover:text-text-primary transition-colors">
+              </NavLink>
+              <NavLink to={ROUTES.OPPORTUNITIES} className={navLinkClass}>
                 <Wrench size={15} strokeWidth={2.5} /> Pipeline
-              </Link>
+              </NavLink>
             </>
           )}
         </nav>

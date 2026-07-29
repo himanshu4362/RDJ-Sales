@@ -36,7 +36,7 @@ export const ROUTES = {
 
   REPAIRS: '/admin/repairs',
   VIP_APPOINTMENTS: '/admin/vip',
-
+  PROPOSAL_WORKSPACE: (id: string) => `/admin/opportunities/${id}/proposal`,
   ADMIN_CATALOG: '/admin/catalog',
   ADMIN_PRODUCT_CREATE: '/admin/catalog/new',
   ADMIN_PRODUCT_EDIT: (productSlug: string) => `/admin/catalog/${productSlug}/edit`,

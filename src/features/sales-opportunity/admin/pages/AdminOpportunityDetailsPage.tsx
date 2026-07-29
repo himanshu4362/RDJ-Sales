@@ -205,8 +205,8 @@ export const AdminOpportunityDetailsPage: React.FC = () => {
                 <span className="text-xs font-bold text-text-muted uppercase tracking-wider mb-1">{opp.productModel}</span>
                 <span className="text-lg font-bold text-text-primary line-clamp-2">{opp.productName}</span>
 
-                <button onClick={() => navigate(ROUTES.PRODUCT_DETAILS(opp.productSlug))} className="mt-6 text-sm font-bold text-brand-primary hover:underline text-left">
-                  View Current Catalog Listing →
+                <button onClick={() => navigate(ROUTES.ADMIN_PRODUCT_DETAILS(opp.productSlug))} className="mt-6 text-sm font-bold text-brand-primary hover:underline text-left flex items-center gap-1">
+                  View Admin Catalog Record
                 </button>
               </div>
             </div>

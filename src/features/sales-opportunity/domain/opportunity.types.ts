@@ -1,4 +1,9 @@
-export const OPPORTUNITY_STATUSES = ['NEW', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'] as const;
+export const OPPORTUNITY_STATUSES = [
+  'NEW', 
+  'IN_PROGRESS', 
+  'CONVERTED', // REFINEMENT 3: Replaces COMPLETED. Indicates successful transition to COM.
+  'CANCELLED'
+] as const;
 export type OpportunityStatus = typeof OPPORTUNITY_STATUSES[number];
 
 export interface SalesOpportunity {
@@ -24,5 +29,7 @@ export interface SalesOpportunity {
   createdAt: string;
   updatedAt: string;
 }
+
+
 
 export type CreateOpportunityPayload = Omit<SalesOpportunity, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
