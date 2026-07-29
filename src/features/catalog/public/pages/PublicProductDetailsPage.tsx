@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShieldCheck, Wrench, PhoneCall, CheckCircle2 } from 'lucide-react';
 import { ROUTES } from '../../../../app/navigation/routes';
 import { usePublicProductDetails } from '../../hooks/public.hooks';
 import { LoadingSkeleton } from '../../../../common/components/ui/LoadingSkeleton';
 import { formatCurrency } from '../../../../common/utils/formatters';
+import { OpportunityDrawer } from '../../../sales-opportunity/public/components/OpportunityDrawer';
 
 export const PublicProductDetailsPage: React.FC = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { data: product, isLoading } = usePublicProductDetails(slug ?? '');
+
 
   if (isLoading || !product) {
     return (
@@ -29,7 +32,7 @@ export const PublicProductDetailsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-surface-secondary pb-24">
-      
+
       {/* 1. NAVIGATION */}
       <div className="bg-surface-primary border-b border-border-default sticky top-16 z-20">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4">
@@ -41,7 +44,7 @@ export const PublicProductDetailsPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 pt-8 md:pt-12">
         <div className="flex flex-col lg:flex-row gap-10 xl:gap-16">
-          
+
           {/* 2. MEDIA (Left Column) */}
           <div className="w-full lg:w-1/2 flex flex-col gap-4">
             <div className="aspect-square bg-surface-elevated rounded-2xl border border-border-default overflow-hidden flex items-center justify-center relative shadow-sm">
@@ -58,7 +61,7 @@ export const PublicProductDetailsPage: React.FC = () => {
 
           {/* 3. BUSINESS DATA & ACTION (Right Column) */}
           <div className="w-full lg:w-1/2 flex flex-col">
-            
+
             {/* Identity & Trust */}
             <div className="flex items-center gap-2 mb-4">
               <ShieldCheck size={20} className="text-success" />
@@ -85,14 +88,14 @@ export const PublicProductDetailsPage: React.FC = () => {
                   {product.stock.quantity > 0 ? 'In Stock' : 'Check Availability'}
                 </span>
               </div>
-              
+
               {/* P0 Correction 3: Dead CTA Fixed */}
-              <button 
-                onClick={() => alert("Commercial Inquiry System under development.\n\nSoon this will open a direct WhatsApp channel or Draft Quote for Rana Sales.")}
+              <button
+                onClick={() => setIsDrawerOpen(true)}
                 className="w-full bg-brand-primary hover:bg-brand-secondary text-white h-16 rounded-lg font-bold text-lg flex items-center justify-center gap-3 transition-colors shadow-md"
               >
                 <PhoneCall size={22} />
-                Contact Rana Sales
+                Request Pricing & Availability
               </button>
               <p className="text-xs text-center text-text-secondary mt-4 font-medium">
                 Need help verifying compatibility with your setup? Ask our experts.
@@ -150,6 +153,11 @@ export const PublicProductDetailsPage: React.FC = () => {
         )}
 
       </div>
+      <OpportunityDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        product={product}
+      />
     </div>
   );
 };

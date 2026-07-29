@@ -9,7 +9,11 @@ export const ROUTES = {
   CATALOG: '/catalog', 
   PRODUCT_DETAILS: (productSlug: string) => `/catalog/${productSlug}`,
   CONFIGURATOR: '/configurator',
-
+  ADMIN_WORKSPACE: '/admin',
+  OPPORTUNITIES: '/admin/opportunities',
+  ORDERS: '/admin/orders', 
+  REPAIRS: '/admin/repairs', 
+  VIP_APPOINTMENTS: '/admin/vip', 
   // ==========================================
   // AUTHENTICATION JOURNEY
   // ==========================================
@@ -19,11 +23,8 @@ export const ROUTES = {
   // ACTION ZONE (Protected / Requires Session)
   // ==========================================
   CART: '/cart',
-  ORDERS: '/orders',
   ORDER_DETAILS: (orderId: string) => `/orders/${orderId}`,
   PAYMENTS: '/payments',
-  REPAIRS: '/repairs',
-  VIP_APPOINTMENTS: '/vip',
 
   // ==========================================
   // ADMINISTRATIVE ZONE (Role-Based)
@@ -33,6 +34,9 @@ export const ROUTES = {
   ADMIN_PRODUCT_CREATE: '/admin/catalog/new',
   ADMIN_PRODUCT_EDIT: (productSlug: string) => `/admin/catalog/${productSlug}/edit`,
   ADMIN_PRODUCT_DETAILS: (productSlug: string) => `/admin/catalog/${productSlug}`,
+  
+  // NEW: Added dynamic path generator for opportunity details
+  OPPORTUNITY_DETAILS: (id: string) => `/admin/opportunities/${id}`,
 } as const;
 
 export type AppRoutes = typeof ROUTES;

@@ -25,9 +25,16 @@ Customer views product → Triggers Request → Fills minimal context form → R
 * **Admin Workspace:** A simple, well-designed table/list view. 
 * **Pipeline Statuses:** `NEW` → `IN_PROGRESS` → `COMPLETED` | `CANCELLED`.
 
-## 6. Architectural Constraints (Not in V1)
-* **Scope Limits:** NO Kanban boards, NO drag-and-drop, NO CRM dashboards, NO automated quoting, NO payment processing.
-* **No Authentication Lock:** The Opportunity domain must remain strictly independent of Authentication.
+## 6. Business Lifecycle Policy
+The status of a Sales Opportunity is a strict business policy, not just a UI string. The intended lifecycle is:
+`NEW` (Uncontacted) → `IN_PROGRESS` (Communication established) → `COMPLETED` (Sale won/fulfilled) OR `CANCELLED` (Lead lost/invalid).
 
 ## 7. Client Validation (Next Sync)
 * Ask Ravi: *"When a customer contacts you about a product, what information do you wish they had already given you?"* (Adjust form fields based on this answer later if needed).
+
+## 8. Business Assumptions (Pricing)
+* **Visibility Toggle:** The current V1 assumes public display of `sellingPrice`. In consultative B2B sales, pricing is often hidden or negotiated. 
+* **Future Proofing:** If Rana Sales requests "Call for Price", this will be implemented as a server-side business configuration (e.g., `product.hidePricing = true`), NOT a UI code rewrite. The Opportunity Form must gracefully handle products passed to it without a price.
+
+## 9. Future Roadmap & Enhancements (V2+)
+*   **Status Update Feedback:** V1 updates status instantly. V2 must implement visual feedback (a toast notification or inline spinner) so the user explicitly knows if the network request succeeded or failed.

@@ -3,15 +3,11 @@ import { AppLayout } from './layout/AppLayout';
 import { ROUTES } from './navigation/routes';
 import { AuthorizationBoundary } from '../common/auth/AuthorizationBoundary';
 import { AdminWorkspacePage } from './pages/AdminWorkspacePage';
-
+import { AdminOpportunityListPage } from '../features/sales-opportunity/admin/pages/AdminOpportunityListPage';
+import { AdminOpportunityDetailsPage } from '../features/sales-opportunity/admin/pages/AdminOpportunityDetailsPage';
 import { PublicCatalogPage } from '../features/catalog/public/pages/PublicCatalogPage';
 import { PublicProductDetailsPage } from '../features/catalog/public/pages/PublicProductDetailsPage';
-import { 
-  AdminCatalogListPage, 
-  AdminProductDetailsPage, 
-  AdminCreateProductPage, 
-  AdminEditProductPage 
-} from '../features/catalog';
+import { AdminCatalogListPage, AdminProductDetailsPage, AdminCreateProductPage, AdminEditProductPage } from '../features/catalog';
 
 const Placeholder = ({ title }: { title: string }) => <div className="p-8 text-center"><h1 className="font-bold text-2xl text-text-primary">{title} Module</h1><p className="text-text-secondary">Under Construction</p></div>;
 const NotFound = () => <h1 className="p-8 font-bold text-2xl text-text-primary text-center mt-20">404 - Not Found</h1>;
@@ -43,6 +39,9 @@ export const AppRouter = createBrowserRouter([
               { path: ':slug/edit', element: <AdminEditProductPage /> },
             ]
           },
+
+          { path: 'admin/opportunities', element: <AdminOpportunityListPage /> },
+          { path: 'admin/opportunities/:id', element: <AdminOpportunityDetailsPage /> },
 
           // Future Modules
           { path: 'orders', element: <Placeholder title="Orders" /> },
